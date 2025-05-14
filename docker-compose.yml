@@ -1,0 +1,46 @@
+version: '3.9'
+
+services:
+  mysql:
+    image: mysql:8.1
+    container_name: mysql-db
+    restart: always
+    ports:
+      - '3306:3306'
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: pokedex
+      MYSQL_USER: pokemon_user
+      MYSQL_PASSWORD: pokemon_pass
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - pokedex-net
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    restart: always
+    ports:
+      - '5672:5672'
+      - '15672:15672'
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: admin
+    networks:
+      - pokedex-net
+
+  adminer:
+    image: adminer
+    container_name: adminer
+    restart: always
+    ports:
+      - '8080:8080'
+    networks:
+      - pokedex-net
+
+volumes:
+  db_data:
+
+networks:
+  pokedex-net:
