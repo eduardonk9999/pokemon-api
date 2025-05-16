@@ -1,6 +1,9 @@
 package com.pokedex.service;
 
+import com.pokedex.dto.TreinadorRequestDTO;
+import com.pokedex.entity.Pokemon;
 import com.pokedex.entity.Treinador;
+import com.pokedex.repository.PokemonRepository;
 import com.pokedex.repository.TreinadorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,8 +13,14 @@ import java.util.Optional;
 
 @Service
 public class TreinadorService {
-    @Autowired
-    private TreinadorRepository treinadorRepository;
+
+    private final TreinadorRepository treinadorRepository;
+    private final PokemonRepository pokemonRepository;
+
+    public TreinadorService(TreinadorRepository treinadorRepository, PokemonRepository pokemonRepository) {
+        this.treinadorRepository = treinadorRepository;
+        this.pokemonRepository = pokemonRepository;
+    }
 
     public List<Treinador> findAll() {
         return treinadorRepository.findAll();
@@ -21,7 +30,16 @@ public class TreinadorService {
         return treinadorRepository.findById(id);
     }
 
-    public Treinador save(Treinador treinador) {
+    public Treinador save(TreinadorRequestDTO dto) {
+        Pokemon pokemon = pokemonRepository.findById(dto.getIdPokemon())
+                .orElseThrow(() -> new RuntimeException("Pokémon não encontrado"));
+
+        Treinador treinador = Treinador.builder()
+                .nomeTreinador(dto.getNomeTreinador())
+                .idade(dto.getIdade())
+                .pokemon(pokemon)
+                .build();
+
         return treinadorRepository.save(treinador);
     }
 

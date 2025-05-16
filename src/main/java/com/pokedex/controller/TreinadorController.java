@@ -1,7 +1,10 @@
 package com.pokedex.controller;
 
+import com.pokedex.dto.TreinadorRequestDTO;
+import com.pokedex.dto.TreinadorResponseDTO;
 import com.pokedex.entity.Treinador;
 import com.pokedex.service.TreinadorService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,9 +34,10 @@ public class TreinadorController {
     }
 
     @PostMapping
-    public ResponseEntity<Treinador> criar(@RequestBody Treinador treinador) {
-        Treinador criado = treinadorService.save(treinador);
-        return ResponseEntity.status(201).body(criado);
+    public ResponseEntity<TreinadorResponseDTO> criar(@RequestBody @Valid TreinadorRequestDTO dto) {
+        Treinador treinador = treinadorService.save(dto);
+        TreinadorResponseDTO response = new TreinadorResponseDTO(treinador);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @DeleteMapping("/{id}")
