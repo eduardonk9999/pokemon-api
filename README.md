@@ -1,4 +1,4 @@
-# 🐱‍🏍 Pokedex API
+# 🐣 Pokedex API
 
 API para cadastro de Pokémons e seus Treinadores. Utiliza Spring Boot, MySQL, RabbitMQ e outras tecnologias modernas para comunicação e persistência de dados.
 
