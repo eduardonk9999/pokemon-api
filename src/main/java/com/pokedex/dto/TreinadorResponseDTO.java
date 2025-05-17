@@ -15,9 +15,9 @@ public class TreinadorResponseDTO {
     private String nomePokemon;
 
     public TreinadorResponseDTO(Treinador treinador) {
-        this.id = id;
-        this.nomeTreinador = nomeTreinador;
-        this.idade = idade;
+        this.id = treinador.getId();
+        this.nomeTreinador = treinador.getNomeTreinador();
+        this.idade = treinador.getIdade();
         this.nomePokemon = treinador.getPokemon().getNomePokemon();
     }
 }
