@@ -40,7 +40,10 @@ public class TreinadorService {
                 .pokemon(pokemon)
                 .build();
 
+        // colocar pra enviar para o RabbitMQ
         return treinadorRepository.save(treinador);
+
+
     }
 
     public void delete(Long id) {
