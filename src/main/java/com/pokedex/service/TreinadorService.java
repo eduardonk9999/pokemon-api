@@ -1,8 +1,10 @@
 package com.pokedex.service;
 
 import com.pokedex.dto.TreinadorRequestDTO;
+import com.pokedex.dto.TreinadorResponseDTO;
 import com.pokedex.entity.Pokemon;
 import com.pokedex.entity.Treinador;
+import com.pokedex.producer.TreinadorProducer;
 import com.pokedex.repository.PokemonRepository;
 import com.pokedex.repository.TreinadorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,8 @@ public class TreinadorService {
 
     private final TreinadorRepository treinadorRepository;
     private final PokemonRepository pokemonRepository;
+
+    private TreinadorProducer producer;
 
     public TreinadorService(TreinadorRepository treinadorRepository, PokemonRepository pokemonRepository) {
         this.treinadorRepository = treinadorRepository;
@@ -40,10 +44,12 @@ public class TreinadorService {
                 .pokemon(pokemon)
                 .build();
 
-        // colocar pra enviar para o RabbitMQ
-        return treinadorRepository.save(treinador);
 
+       Treinador saved = treinadorRepository.save(treinador);
 
+       producer.enviarMensagem(new TreinadorResponseDTO(saved));
+
+       return saved;
     }
 
     public void delete(Long id) {
