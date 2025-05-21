@@ -3,12 +3,12 @@
 API para cadastro de Pokémons e seus Treinadores. Utiliza Spring Boot, MySQL, RabbitMQ e outras tecnologias modernas para comunicação e persistência de dados.
 
 ---
-### 🚀 Subir os serviços
+### 🚀 Subir os serviços.
 
 Execute o seguinte comando na raiz do projeto:
 
 ```bash
-docker-compose up -d
+docker-compose up -d 
 ```
 ### ⚙️ Tecnologias Utilizadas
 <ul>
