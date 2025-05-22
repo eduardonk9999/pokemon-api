@@ -18,12 +18,13 @@ public class TreinadorService {
 
     private final TreinadorRepository treinadorRepository;
     private final PokemonRepository pokemonRepository;
+    private final TreinadorProducer producer;
 
-    private TreinadorProducer producer;
 
-    public TreinadorService(TreinadorRepository treinadorRepository, PokemonRepository pokemonRepository) {
+    public TreinadorService(TreinadorRepository treinadorRepository, PokemonRepository pokemonRepository, TreinadorProducer producer) {
         this.treinadorRepository = treinadorRepository;
         this.pokemonRepository = pokemonRepository;
+        this.producer = producer;
     }
 
     public List<Treinador> findAll() {

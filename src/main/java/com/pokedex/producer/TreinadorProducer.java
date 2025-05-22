@@ -3,7 +3,9 @@ package com.pokedex.producer;
 import com.pokedex.config.RabbitMQConfig;
 import com.pokedex.dto.TreinadorResponseDTO;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.stereotype.Component;
 
+@Component
 public class TreinadorProducer {
     private final RabbitTemplate rabbitTemplate;
 
