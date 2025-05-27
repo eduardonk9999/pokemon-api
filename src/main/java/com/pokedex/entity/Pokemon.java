@@ -26,5 +26,4 @@ public class Pokemon {
 
     @OneToMany(mappedBy = "pokemon", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Treinador> treinadors;
-
 }
