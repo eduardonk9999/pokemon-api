@@ -48,4 +48,18 @@ public class TreinadorServiceTest {
         assertEquals("Pikachu", treinador.getPokemon().getNomePokemon());
 
     }
+
+    @Test
+    void deveLancarExcecaoQuandoPokemonNaoExistir() {
+        TreinadorRequestDTO dto = new TreinadorRequestDTO("Misty", 12, 99L);
+        when(pokemonRepository.findById(99L)).thenReturn(Optional.empty());
+
+        RuntimeException exception = assertThrows(RuntimeException.class, () -> {
+            service.save(dto);
+        });
+
+        assertEquals("Pokémon não encontrado com ID: 99", exception.getMessage());
+
+        verify(producer, never()).enviarMensagem(any());
+    }
 }

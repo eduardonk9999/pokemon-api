@@ -37,7 +37,7 @@ public class TreinadorService {
 
     public Treinador save(TreinadorRequestDTO dto) {
         Pokemon pokemon = pokemonRepository.findById(dto.getIdPokemon())
-                .orElseThrow(() -> new RuntimeException("Pokémon não encontrado"));
+                .orElseThrow(() -> new RuntimeException("Pokémon não encontrado com ID: " + dto.getIdPokemon()));
 
         Treinador treinador = Treinador.builder()
                 .nomeTreinador(dto.getNomeTreinador())
